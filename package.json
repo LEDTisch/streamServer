@@ -16,5 +16,13 @@
   "bugs": {
     "url": "https://github.com/LEDTisch/streamServer/issues"
   },
-  "homepage": "https://github.com/LEDTisch/streamServer#readme"
+  "homepage": "https://github.com/LEDTisch/streamServer#readme",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "express": "^4.17.1",
+    "express-ws": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^14.14.37"
+  }
 }

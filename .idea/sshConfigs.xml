@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="SshConfigs">
-    <configs>
-      <sshConfig authType="PASSWORD" host="stream.arnold-tim.de" id="9df9bb77-55c5-46ed-93fa-df7ce73d2be5" port="22" nameFormat="DESCRIPTIVE" username="ft" />
-    </configs>
-  </component>
-</project>
