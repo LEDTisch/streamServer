@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="3ad69ae6-138b-47d7-a9c9-eb089fac3a29" name="streamServer">
+        <fileTransfer accessType="SFTP" host="stream.arnold-tim.de" port="22" sshConfigId="9df9bb77-55c5-46ed-93fa-df7ce73d2be5" sshConfig="ft@stream.arnold-tim.de:22 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
