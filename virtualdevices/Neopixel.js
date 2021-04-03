@@ -1,8 +1,24 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Neopixel = void 0;
+var WebSocket = require('ws');
 var Neopixel = /** @class */ (function () {
     function Neopixel() {
-        this.numpixels = 0;
+        this.numpixels = 150;
     }
-    Neopixel.prototype.show = function () {
+    Neopixel.prototype.show = function (ws) {
+        var obj = {
+            buffer: this.pixels
+        };
+        if (ws.readyState === WebSocket.OPEN) {
+            ws.send(JSON.stringify(obj));
+        }
+    };
+    Neopixel.prototype.begin = function () {
+        this.pixels = new Array();
+        for (var i = 0; i < this.numpixels; i++) {
+            this.pixels.push(0);
+        }
     };
     Neopixel.prototype.setPixelColor = function (n, r, g, b) {
         if (n > this.numpixels)
@@ -13,9 +29,17 @@ var Neopixel = /** @class */ (function () {
             return;
         if (b > 255 || b < 0)
             return;
-        this.pixels[n * 3] = r.toByte();
-        this.pixels[n * 3 + 1] = g.toByte();
-        this.pixels[n * 3 + 2] = b.toByte();
+        this.pixels[n] =
+            ((r & 0xFF) << 16) |
+                ((g & 0xFF) << 8) |
+                ((b & 0xFF) << 0);
+    };
+    Neopixel.prototype.setRGBPixelColor = function (n, rgb) {
+        if (n > this.numpixels)
+            return;
+        this.pixels[n * 3] = rgb & 0xFF;
+        this.pixels[n * 3 + 1] = (rgb >> 1) & 0xFF;
+        this.pixels[n * 3 + 2] = (rgb >> 2) & 0xFF;
     };
     Neopixel.prototype.setBrightness = function (brightness) { };
     Neopixel.prototype.clear = function () {
@@ -25,4 +49,5 @@ var Neopixel = /** @class */ (function () {
     };
     return Neopixel;
 }());
+exports.Neopixel = Neopixel;
 //# sourceMappingURL=Neopixel.js.map

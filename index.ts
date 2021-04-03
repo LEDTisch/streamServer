@@ -1,29 +1,22 @@
-import StreamTest from "./apps/StreamTest";
-
+import { startApp } from "./Worker";
+import {VirtualLEDWall} from "./virtualdevices/VirtualLEDWall";
 const express = require('express')
 const app = express()
 const port = 3000
 var expressWs = require('express-ws')(app);
 const axios = require('axios');
+ var connections = [];
+import {Neopixel} from "./virtualdevices/Neopixel";
 
-
-import { spawn, Thread, Worker } from "threads"
-
-import { expose } from "threads/worker"
-
-
-import {Application} from './application'
+export var ledtisch;
 
 
 const backend = "https://api.arnold-tim.de";
-let map = new Map<string,Application>();
 
 function init() {
-    map.set("0186cdd1-92f3-11eb-ad01-0242ac110002",new StreamTest());
 
-
-    map.get("0186cdd1-92f3-11eb-ad01-0242ac110002").onDraw();
-
+    ledtisch = new VirtualLEDWall(10,15,1);
+    ledtisch.init(new Neopixel());
 
 
 }
@@ -40,32 +33,7 @@ app.ws('/startLiveApp', (ws,req)=> {
         axios.get(backend+"/auth/validateSession"+"?session="+req.query.session).then((result) => {
            if(result.data.success) {
 
-
-               if(req.query.appuuid==="0186cdd1-92f3-11eb-ad01-0242ac110002") {
-                   map.get(req.query.appuuid).onCreate();
-
-                 spawn(new Worker("./Worker")).then(exposedFunction=> {
-                     exposedFunction("andywer").then((resultFromFunction)=> {
-
-                         Thread.terminate(exposedFunction)
-                     })
-                   })
-                   ws.send("THat geklappt")
-
-
-
-
-
-               }else{
-                   ws.send("Invalid App")
-                   ws.close();
-               }
-
-
-
-
-
-
+               startApp(req.query.appuuid,ws,req.query.session);
 
            }else{
                ws.send("Invalid Session")
@@ -81,6 +49,11 @@ app.ws('/startLiveApp', (ws,req)=> {
 
 
 })
+
+
+export function writeToSocket(socketid:number,message:string) {
+connections[socketid].send(message);
+}
 
 app.listen(port, () => {
     console.log(`Stream App listening at http://localhost:${port}`)

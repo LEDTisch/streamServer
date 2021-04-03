@@ -1,32 +1,33 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var LEDTisch = /** @class */ (function () {
-    function LEDTisch(width, height, rotation) {
+exports.VirtualLEDWall = void 0;
+var VirtualLEDWall = /** @class */ (function () {
+    function VirtualLEDWall(width, height, rotation) {
         this.width = width;
         this.height = height;
         this.rotation = rotation;
     }
-    LEDTisch.prototype.init = function (strip) {
+    VirtualLEDWall.prototype.init = function (strip) {
         this.strip = strip;
         strip.begin();
     };
-    LEDTisch.prototype.setColor = function (r, g, b) {
+    VirtualLEDWall.prototype.setColor = function (r, g, b) {
         this.red = r;
         this.green = g;
         this.blue = b;
     };
-    LEDTisch.prototype.clear = function () {
+    VirtualLEDWall.prototype.clear = function () {
         this.strip.clear();
     };
-    LEDTisch.prototype.show = function () {
-        this.strip.show();
+    VirtualLEDWall.prototype.show = function (ws) {
+        this.strip.show(ws);
     };
-    LEDTisch.prototype.drawPixel = function (x, y) {
+    VirtualLEDWall.prototype.drawPixel = function (x, y) {
         if (x >= 0 && x < this.width && y >= 0 && y < this.height) {
             this.strip.setPixelColor(this.calculateStripPixel(x, y), this.red, this.green, this.blue);
         }
     };
-    LEDTisch.prototype.calculateStripPixel = function (x, y) {
+    VirtualLEDWall.prototype.calculateStripPixel = function (x, y) {
         var PO = -1;
         if (x >= 0 && x < this.width && y >= 0 && y < this.height) {
             var led = 0;
@@ -65,14 +66,14 @@ var LEDTisch = /** @class */ (function () {
         }
         return PO;
     };
-    LEDTisch.prototype.fillRect = function (x, y, w, h) {
+    VirtualLEDWall.prototype.fillRect = function (x, y, w, h) {
         for (var xx = x; xx < x + w; xx++) {
             for (var yy = y; yy < y + h; yy++) {
                 this.drawPixel(xx, yy);
             }
         }
     };
-    LEDTisch.prototype.copyFrameToPixelBuffer = function (frame, skipOff) {
+    VirtualLEDWall.prototype.copyFrameToPixelBuffer = function (frame, skipOff) {
         var i = 0;
         for (var y = 0; y < this.height; y++) {
             for (var x = 0; x < this.width; x++) {
@@ -82,55 +83,55 @@ var LEDTisch = /** @class */ (function () {
                         continue;
                     }
                 ;
-                this.strip.setPixelColor(this.calculateStripPixel(x, y), frame[i]);
+                this.strip.setRGBPixelColor(this.calculateStripPixel(x, y), frame[i]);
                 i++;
             }
         }
     };
     ////////////////////////////SETTER///GETTER//////////
-    LEDTisch.prototype.setRotation = function (rotation) {
+    VirtualLEDWall.prototype.setRotation = function (rotation) {
         this.rotation = rotation;
     };
-    LEDTisch.prototype.getHeight = function () {
+    VirtualLEDWall.prototype.getHeight = function () {
         return this.height;
     };
-    LEDTisch.prototype.getWidth = function () {
+    VirtualLEDWall.prototype.getWidth = function () {
         return this.width;
     };
-    LEDTisch.prototype.getBlue = function () {
+    VirtualLEDWall.prototype.getBlue = function () {
         return this.blue;
     };
-    LEDTisch.prototype.getGreen = function () {
+    VirtualLEDWall.prototype.getGreen = function () {
         return this.green;
     };
-    LEDTisch.prototype.getRed = function () {
+    VirtualLEDWall.prototype.getRed = function () {
         return this.red;
     };
-    LEDTisch.prototype.getRotation = function () {
+    VirtualLEDWall.prototype.getRotation = function () {
         return this.rotation;
     };
-    LEDTisch.prototype.getStrip = function () {
+    VirtualLEDWall.prototype.getStrip = function () {
         return this.strip;
     };
-    LEDTisch.prototype.setWidth = function (width) {
+    VirtualLEDWall.prototype.setWidth = function (width) {
         this.width = width;
     };
-    LEDTisch.prototype.setHeight = function (height) {
+    VirtualLEDWall.prototype.setHeight = function (height) {
         this.height = height;
     };
-    LEDTisch.prototype.setBlue = function (blue) {
+    VirtualLEDWall.prototype.setBlue = function (blue) {
         this.blue = blue;
     };
-    LEDTisch.prototype.setGreen = function (green) {
+    VirtualLEDWall.prototype.setGreen = function (green) {
         this.green = green;
     };
-    LEDTisch.prototype.setRed = function (red) {
+    VirtualLEDWall.prototype.setRed = function (red) {
         this.red = red;
     };
-    LEDTisch.prototype.setStrip = function (strip) {
+    VirtualLEDWall.prototype.setStrip = function (strip) {
         this.strip = strip;
     };
-    return LEDTisch;
+    return VirtualLEDWall;
 }());
-exports.default = LEDTisch;
-//# sourceMappingURL=virtualLEDWall.js.map
+exports.VirtualLEDWall = VirtualLEDWall;
+//# sourceMappingURL=VirtualLEDWall.js.map

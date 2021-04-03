@@ -1,4 +1,6 @@
-export default class LEDTisch {
+import {Neopixel} from "./Neopixel";
+
+export class VirtualLEDWall {
       width:number;
       height:number;
       rotation:number;
@@ -8,7 +10,7 @@ export default class LEDTisch {
 
      strip:Neopixel;
 
-    constructor(width, height, rotation){
+    constructor(width:number, height:number, rotation:number){
     this.width=width;
     this.height=height;
     this.rotation=rotation;
@@ -27,8 +29,8 @@ setColor( r, g, b){
  clear(){
     this.strip.clear();
 }
- show(){
-    this.strip.show();
+ show(ws){
+    this.strip.show(ws);
 }
  drawPixel( x, y){
     if (x >= 0 && x < this.width && y >= 0 && y < this.height) {
@@ -105,7 +107,7 @@ setColor( r, g, b){
 
 
             if(skipOff) if(frame[i]==0) {i++;continue;};
-            this.strip.setPixelColor(this.calculateStripPixel(x,y),frame[i]);
+            this.strip.setRGBPixelColor(this.calculateStripPixel(x,y),frame[i]);
 
             i++;
         }

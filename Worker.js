@@ -36,13 +36,62 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var worker_1 = require("threads/worker");
-worker_1.expose(function test(text) {
+exports.startApp = void 0;
+var StreamTest_1 = require("./apps/StreamTest");
+var index_1 = require("./index");
+var WebSocket = require('ws');
+var FPS = 15;
+function startApp(appuuid, ws, session) {
     return __awaiter(this, void 0, void 0, function () {
+        var startedApp, counter1, counter2, e_1;
         return __generator(this, function (_a) {
-            console.log("Do someging async");
-            return [2 /*return*/, text];
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 4, , 5]);
+                    startedApp = null;
+                    console.log("Client start streaming");
+                    switch (appuuid) {
+                        case "0186cdd1-92f3-11eb-ad01-0242ac110002":
+                            startedApp = new StreamTest_1.StreamTest();
+                            break;
+                        default:
+                            ws.close();
+                            break;
+                    }
+                    startedApp.onCreate();
+                    counter1 = 0;
+                    counter2 = 0;
+                    _a.label = 1;
+                case 1:
+                    if (!true) return [3 /*break*/, 3];
+                    return [4 /*yield*/, new Promise(function (r) { return setTimeout(r, 1); })];
+                case 2:
+                    _a.sent();
+                    counter1++;
+                    counter2++;
+                    if (counter1 == 7) {
+                        counter1 = 0;
+                        startedApp.onRun();
+                    }
+                    if (counter2 == 66) {
+                        counter2 = 0;
+                        startedApp.onDraw();
+                        index_1.ledtisch.show(ws);
+                    }
+                    if (ws.readyState !== WebSocket.OPEN) {
+                        console.log("Client left");
+                        return [2 /*return*/];
+                    }
+                    return [3 /*break*/, 1];
+                case 3: return [3 /*break*/, 5];
+                case 4:
+                    e_1 = _a.sent();
+                    console.log(e_1);
+                    return [3 /*break*/, 5];
+                case 5: return [2 /*return*/];
+            }
         });
     });
-});
+}
+exports.startApp = startApp;
 //# sourceMappingURL=Worker.js.map
