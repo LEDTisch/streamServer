@@ -16,7 +16,7 @@ export default class StreamTest implements Application {
     }
 
     onCreate() {
-
+        console.log("App is runninf")
     }
 
     onDataReceive(data: String, playerID: number) {

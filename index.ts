@@ -7,6 +7,11 @@ var expressWs = require('express-ws')(app);
 const axios = require('axios');
 
 
+import { spawn, Thread, Worker } from "threads"
+
+import { expose } from "threads/worker"
+
+
 import {Application} from './application'
 
 
@@ -39,6 +44,16 @@ app.ws('/startLiveApp', (ws,req)=> {
                if(req.query.appuuid==="0186cdd1-92f3-11eb-ad01-0242ac110002") {
                    map.get(req.query.appuuid).onCreate();
 
+                 spawn(new Worker("./Worker")).then(exposedFunction=> {
+                     exposedFunction("andywer").then((resultFromFunction)=> {
+
+                         Thread.terminate(exposedFunction)
+                     })
+                   })
+                   ws.send("THat geklappt")
+
+
+
 
 
                }else{
@@ -50,9 +65,8 @@ app.ws('/startLiveApp', (ws,req)=> {
 
 
 
-               ws.send("THat geklappt")
-               
-               
+
+
            }else{
                ws.send("Invalid Session")
                ws.close();

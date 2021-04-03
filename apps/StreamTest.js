@@ -13,6 +13,7 @@ var StreamTest = /** @class */ (function () {
         return "1.0";
     };
     StreamTest.prototype.onCreate = function () {
+        console.log("App is runninf");
     };
     StreamTest.prototype.onDataReceive = function (data, playerID) {
     };

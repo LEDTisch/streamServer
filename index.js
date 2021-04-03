@@ -6,6 +6,7 @@ var app = express();
 var port = 3000;
 var expressWs = require('express-ws')(app);
 var axios = require('axios');
+var threads_1 = require("threads");
 var backend = "https://api.arnold-tim.de";
 var map = new Map();
 function init() {
@@ -22,12 +23,17 @@ app.ws('/startLiveApp', function (ws, req) {
             if (result.data.success) {
                 if (req.query.appuuid === "0186cdd1-92f3-11eb-ad01-0242ac110002") {
                     map.get(req.query.appuuid).onCreate();
+                    threads_1.spawn(new threads_1.Worker("./Worker")).then(function (exposedFunction) {
+                        exposedFunction("andywer").then(function (resultFromFunction) {
+                            threads_1.Thread.terminate(exposedFunction);
+                        });
+                    });
+                    ws.send("THat geklappt");
                 }
                 else {
                     ws.send("Invalid App");
                     ws.close();
                 }
-                ws.send("THat geklappt");
             }
             else {
                 ws.send("Invalid Session");
