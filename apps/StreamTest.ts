@@ -23,15 +23,13 @@ export class StreamTest implements Application {
 
     reset() {
 
-        for (let i = 0; i > 15; i++) {
+        for (let i = 0; i < 15; i++) {
             this.ison[i] = false
         }
 
-        for (let x = 0; x > 10; x++) {
-            this.roadpieces[x] = [];
-        }
 
-        for (let x = 0; x > 10; x++) {
+
+        for (let x = 0; x < 10; x++) {
             for (let y = 0; y < 6; y++) {
                 this.roadpieces[x][y] = false
             }
@@ -77,7 +75,7 @@ export class StreamTest implements Application {
         }
 
 
-        if (this.firstone) {
+        if (this.firstone) {//Init row
             this.firstone = false
             for (let i = 0; i < this.referenzpoint + 1; i++) {
                 this.roadpieces[i][15] = true
@@ -86,12 +84,13 @@ export class StreamTest implements Application {
                 this.roadpieces[i][15] = true
             }
         }
-        for (let y = 0; y < 14; y++) {
-            for (let x = 0; x < 9; x++) {
+
+        for (let y = 0; y < 15; y++) {
+            for (let x = 0; x < 10; x++) {
                 this.roadpieces[x][y] = this.roadpieces[x][y + 1]
             }
         }
-        for (let i = 0; i < 9; i++) {
+        for (let i = 0; i < 10; i++) {
             this.roadpieces[i][15] = false
         }
         this.roadpieces[this.referenzpoint][15] = true
@@ -122,9 +121,9 @@ export class StreamTest implements Application {
 
     onDraw() {
         let counter = 0
-        for (let y = 0; y < 14; y++) {
+        for (let y = 0; y < 15; y++) {
             counter++
-            for (let x = 0; x < 9; x++) {
+            for (let x = 0; x < 10; x++) {
                 if (this.roadpieces[x][y]) {
                     if (this.ison[y]) {
 
@@ -173,7 +172,7 @@ export class StreamTest implements Application {
     }
 
     onRun() {
-
+console.log("Punkte: " + (100 - this.fasttickdelay))
         if (this.gameend == 0) {
             if (Date.now() - this.lastfasttick >= this.fasttickdelay) {
                 this.fasttickdelay -= 0.13

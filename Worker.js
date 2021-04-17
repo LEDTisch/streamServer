@@ -73,7 +73,7 @@ function startApp(appuuid, ws, session) {
                         counter1 = 0;
                         startedApp.onRun();
                     }
-                    if (counter2 == 66) {
+                    if (counter2 == 90) {
                         counter2 = 0;
                         startedApp.onDraw();
                         index_1.ledtisch.show(ws);

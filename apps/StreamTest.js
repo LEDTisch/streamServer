@@ -19,13 +19,10 @@ var StreamTest = /** @class */ (function () {
         this.reset();
     }
     StreamTest.prototype.reset = function () {
-        for (var i = 0; i > 15; i++) {
+        for (var i = 0; i < 15; i++) {
             this.ison[i] = false;
         }
-        for (var x = 0; x > 10; x++) {
-            this.roadpieces[x] = [];
-        }
-        for (var x = 0; x > 10; x++) {
+        for (var x = 0; x < 10; x++) {
             for (var y = 0; y < 6; y++) {
                 this.roadpieces[x][y] = false;
             }
@@ -67,7 +64,7 @@ var StreamTest = /** @class */ (function () {
                 this.keepstate = 0;
             }
         }
-        if (this.firstone) {
+        if (this.firstone) { //Init row
             this.firstone = false;
             for (var i = 0; i < this.referenzpoint + 1; i++) {
                 this.roadpieces[i][15] = true;
@@ -76,12 +73,12 @@ var StreamTest = /** @class */ (function () {
                 this.roadpieces[i][15] = true;
             }
         }
-        for (var y = 0; y < 14; y++) {
-            for (var x = 0; x < 9; x++) {
+        for (var y = 0; y < 15; y++) {
+            for (var x = 0; x < 10; x++) {
                 this.roadpieces[x][y] = this.roadpieces[x][y + 1];
             }
         }
-        for (var i = 0; i < 9; i++) {
+        for (var i = 0; i < 10; i++) {
             this.roadpieces[i][15] = false;
         }
         this.roadpieces[this.referenzpoint][15] = true;
@@ -105,9 +102,9 @@ var StreamTest = /** @class */ (function () {
     };
     StreamTest.prototype.onDraw = function () {
         var counter = 0;
-        for (var y = 0; y < 14; y++) {
+        for (var y = 0; y < 15; y++) {
             counter++;
-            for (var x = 0; x < 9; x++) {
+            for (var x = 0; x < 10; x++) {
                 if (this.roadpieces[x][y]) {
                     if (this.ison[y]) {
                         index_1.ledtisch.setColor(0, 160, 0);
@@ -150,6 +147,7 @@ var StreamTest = /** @class */ (function () {
         this.gameend = 1;
     };
     StreamTest.prototype.onRun = function () {
+        console.log("Punkte: " + (100 - this.fasttickdelay));
         if (this.gameend == 0) {
             if (Date.now() - this.lastfasttick >= this.fasttickdelay) {
                 this.fasttickdelay -= 0.13;
